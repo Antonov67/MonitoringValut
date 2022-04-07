@@ -10,6 +10,8 @@ import java.net.URL;
 public class Main  {
 
 
+
+
     public static void main(String[] args) {
         Monitor monitor = new Monitor();
         monitor.run();
@@ -47,36 +49,44 @@ public class Main  {
         return content.toString();
     }
 
-    public static String getUsd(){
+    public static Data getUsd(){
         Gson gson = new Gson();
         String serverResponse;
         serverResponse = getStringFromServer("https://www.cbr-xml-daily.ru/daily_json.js");
         Valutes valutes = gson.fromJson(serverResponse, Valutes.class);
         double dinamikaUSD;
         dinamikaUSD = valutes.valute.usd.value - valutes.valute.usd.previous;
-
+        Data data = new Data();
+        data.dinamika = dinamikaUSD;
         if (dinamikaUSD > 0)
-            return "курс доллара " + valutes.valute.usd.value + " +" + String.format("%.2f", dinamikaUSD);
+            data.dataString = "курс доллара " + valutes.valute.usd.value + " +" + String.format("%.2f", dinamikaUSD);
         else if (dinamikaUSD == 0)
-            return  "курс доллара " + valutes.valute.usd.value + " не изменился";
+            data.dataString =   "курс доллара " + valutes.valute.usd.value + " не изменился";
         else
-           return "курс доллара " + valutes.valute.usd.value + " " + String.format("%.2f", dinamikaUSD);
+           data.dataString =  "курс доллара " + valutes.valute.usd.value + " " + String.format("%.2f", dinamikaUSD);
+        return data;
     }
 
-    public static String getEur(){
+    public static Data getEur(){
         Gson gson = new Gson();
         String serverResponse;
         serverResponse = getStringFromServer("https://www.cbr-xml-daily.ru/daily_json.js");
         Valutes valutes = gson.fromJson(serverResponse, Valutes.class);
         double dinamikaEUR;
         dinamikaEUR = valutes.valute.eur.value - valutes.valute.eur.previous;
-
-        if (dinamikaEUR > 0)
-            return "курс евро " + valutes.valute.eur.value + " +" + String.format("%.2f", dinamikaEUR);
-        else if (dinamikaEUR == 0)
-            return  "курс евро " + valutes.valute.eur.value + " не изменился";
-        else
-            return "курс евро " + valutes.valute.eur.value + " " + String.format("%.2f", dinamikaEUR);
+        Data data = new Data();
+        data.dinamika = dinamikaEUR;
+        if (dinamikaEUR > 0) {
+            data.dataString = "курс евро " + valutes.valute.eur.value + " +" + String.format("%.2f", dinamikaEUR);
+        }
+        else if (dinamikaEUR == 0) {
+            data.dataString = "курс евро " + valutes.valute.eur.value + " не изменился";
+        }
+        else {
+            data.dataString = "курс евро " + valutes.valute.eur.value + " " + String.format("%.2f", dinamikaEUR);
+        }
+        return data;
     }
 
 }
+
