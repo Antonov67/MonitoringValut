@@ -2,6 +2,7 @@ package valuts;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 public class Monitor extends JFrame implements Runnable {
     private JPanel rootPanel;
@@ -10,8 +11,12 @@ public class Monitor extends JFrame implements Runnable {
     static int count = 0;
 
     public Monitor() {
+        setTitle("монитор курса валют");
+        ImageIcon icon = new ImageIcon("icon.png");
+        setIconImage(icon.getImage());
         setLocation(300,300);
         setContentPane(rootPanel);
+        setResizable(false);
         pack();
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         eur.setOpaque(true);
