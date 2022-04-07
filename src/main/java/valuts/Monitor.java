@@ -12,7 +12,7 @@ public class Monitor extends JFrame implements Runnable {
 
     public Monitor() {
         setTitle("монитор курса валют");
-        ImageIcon icon = new ImageIcon("icon.png");
+        ImageIcon icon = new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/icon.png")));
         setIconImage(icon.getImage());
         setLocation(300,300);
         setContentPane(rootPanel);
